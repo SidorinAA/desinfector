@@ -6,16 +6,15 @@ import org.example.config.JavaConfig;
 import org.example.interfaces.Config;
 import org.example.interfaces.Policeman;
 import org.example.police.PolicemanImpl;
+import org.example.props.PropertyService;
+import org.example.props.PropertyServiceImpl;
 import org.reflections.Reflections;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -23,10 +22,17 @@ public class ObjectFactory {
 
     private Config config;
 
+    private PropertyService propertyService;
+
+    //If we remove it when constructor create impl of this interface
+    //we lose what?
+    //private PropertyService propertyService;
+
     //volitile? while-volitile???
     private static ObjectFactory instance = new ObjectFactory();
 
     private ObjectFactory() {
+        propertyService = new PropertyServiceImpl();
         config = new JavaConfig(
                 new Reflections("org.example"),
                 resolveMap(new HashMap<>()));
@@ -44,7 +50,7 @@ public class ObjectFactory {
         return mapClass;
     }
 
-    //sneaky throws not work need search bag
+    //sneaky throws not work need search bag??? maybe i am wrong??
     @SneakyThrows
     public <T> T createObject(Class<T> type) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, FileNotFoundException {
         if (type.isInterface()) {
@@ -52,11 +58,8 @@ public class ObjectFactory {
         }
         T t = type.getDeclaredConstructor().newInstance();
 
-
         //stream
-        String path = ClassLoader.getSystemClassLoader().getResource("apllication.properties").getPath();
-        Stream<String> lines = new BufferedReader(new FileReader(path)).lines();
-        Map<String, String> map = lines.map(line -> line.split("=")).collect(toMap(arr -> arr[0], arr -> arr[1]));
+        Map<String, String> map = propertyService.getApplicationProperyMaps();
 
         //config object
         for (Field field : type.getDeclaredFields()) {
@@ -71,4 +74,6 @@ public class ObjectFactory {
         }
         return t;
     }
+
+
 }
