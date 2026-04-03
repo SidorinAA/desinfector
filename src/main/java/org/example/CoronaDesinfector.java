@@ -1,14 +1,24 @@
 package org.example;
 
+import org.example.factory.ObjectFactory;
+import org.example.interfaces.Announcer;
+import org.example.interfaces.Policeman;
+import org.example.room.Room;
+
+import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
+
 public class CoronaDesinfector {
 
-    private Announcer announcer = new ConsoleAnnouncer();
+    private Announcer announcer = ObjectFactory.getInstance().createObject(Announcer.class);
+    private Policeman policeman = ObjectFactory.getInstance().createObject(Policeman.class);
 
-    private Policeman policement = new PolicemanImpl();
+    public CoronaDesinfector() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, FileNotFoundException {
+    }
 
     public void start(Room room) {
         announcer.announce("Всем покинуть");
-        policement.makePeopleLeaveRoom();
+        policeman.makePeopleLeaveRoom();
         desinfect(room);
         announcer.announce("Можете вернуться");
     }
