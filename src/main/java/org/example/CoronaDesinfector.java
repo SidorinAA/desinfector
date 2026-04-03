@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.factory.ObjectFactory;
+import org.example.annotation.InjectByType;
 import org.example.interfaces.Announcer;
 import org.example.interfaces.Policeman;
 import org.example.room.Room;
@@ -10,10 +10,14 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CoronaDesinfector {
 
-    private Announcer announcer = ObjectFactory.getInstance().createObject(Announcer.class);
-    private Policeman policeman = ObjectFactory.getInstance().createObject(Policeman.class);
+    //dont call us we call you
+    @InjectByType
+    private Announcer announcer;
 
-    public CoronaDesinfector() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, FileNotFoundException {
+    @InjectByType
+    private Policeman policeman;
+
+    public CoronaDesinfector() throws Exception {
     }
 
     public void start(Room room) {

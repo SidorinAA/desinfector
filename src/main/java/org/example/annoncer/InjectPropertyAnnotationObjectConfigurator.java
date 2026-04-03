@@ -1,6 +1,7 @@
 package org.example.annoncer;
 
 import org.example.annotation.InjectProperty;
+import org.example.context.AppplicationContext;
 import org.example.interfaces.ObjectConfigurator;
 
 import java.io.BufferedReader;
@@ -23,7 +24,7 @@ public class InjectPropertyAnnotationObjectConfigurator implements ObjectConfigu
     }
 
     @Override
-    public void configure(Object t) throws IllegalAccessException {
+    public void configure(Object t, AppplicationContext context) throws IllegalAccessException {
         Class type = t.getClass();
         for (Field field : type.getDeclaredFields()) {
             InjectProperty annotation = field.getAnnotation(InjectProperty.class);

@@ -1,16 +1,17 @@
 package org.example.annoncer;
 
-import org.example.factory.ObjectFactory;
+import org.example.annotation.InjectByType;
+import org.example.annotation.Singleton;
 import org.example.interfaces.Announcer;
 import org.example.interfaces.Recommendator;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-
+@Singleton
 public class ConsoleAnnouncer implements Announcer {
 
-
-    private Recommendator recommendator = ObjectFactory.getInstance().createObject(Recommendator.class);
+    @InjectByType
+    private Recommendator recommendator;
 
     public ConsoleAnnouncer() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, FileNotFoundException {
     }
