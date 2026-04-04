@@ -28,12 +28,9 @@ public class ObjectFactory {
 
     //sneaky throws not work need search bag
     @SneakyThrows
-    public <T> T createObject(Class<T> type) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, FileNotFoundException {
-
+    public <T> T createObject(Class<T> type) throws Exception {
         T t = type.getDeclaredConstructor().newInstance();
-        System.out.println("========");
         configure(t);
-
         return t;
     }
 

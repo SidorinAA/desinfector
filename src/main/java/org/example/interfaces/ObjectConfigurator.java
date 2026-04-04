@@ -7,5 +7,5 @@ import java.lang.reflect.InvocationTargetException;
 
 public interface ObjectConfigurator {
 
-    void configure(Object t, AppplicationContext context) throws IllegalAccessException, FileNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException;
+    void configure(Object t, AppplicationContext context) throws Exception;
 }

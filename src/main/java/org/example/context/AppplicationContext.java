@@ -32,7 +32,7 @@ public class AppplicationContext {
     }
 
     @SneakyThrows
-    public <T> T getObject(Class<T> type) throws FileNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public <T> T getObject(Class<T> type) throws Exception {
         if (cache.containsKey(type)) {
             return (T) cache.get(type);
         }

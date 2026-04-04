@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 public class InjectByTypeAnnotattionObjectConfigurator implements ObjectConfigurator {
 
     @Override
-    public void configure(Object t, AppplicationContext context) throws IllegalAccessException, FileNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException {
+    public void configure(Object t, AppplicationContext context) throws Exception {
         for (Field declareField : t.getClass().getDeclaredFields()) {
             if (declareField.isAnnotationPresent(InjectByType.class)) {
                 Object object = context.getObject(declareField.getType());
