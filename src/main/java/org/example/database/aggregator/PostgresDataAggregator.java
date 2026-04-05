@@ -1,3 +1,4 @@
+/*
 package org.example.database.aggregator;
 
 import org.example.annotation.InjectByType;
@@ -47,3 +48,4 @@ public class PostgresDataAggregator implements DataAggregator {
         return student;
     }
 }
+*/

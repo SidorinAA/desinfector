@@ -1,3 +1,4 @@
+/*
 package org.example.database.configure;
 
 import org.example.annotation.InjectByType;
@@ -15,7 +16,8 @@ public class PrepareStatementConnectConfigure implements StatementConnectConfigu
 
     @Override
     public PreparedStatement getPrepareStatement(String sql) throws SQLException {
-        Connection connection = connector.getConnection();
-        return connection.prepareStatement(sql);
+        return (PreparedStatement) connector.getConnection(sql);
+
     }
 }
+*/

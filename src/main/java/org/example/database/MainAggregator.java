@@ -1,3 +1,4 @@
+/*
 package org.example.database;
 
 import org.example.annotation.InjectByType;
@@ -18,3 +19,4 @@ public class MainAggregator implements Aggregator {
 
 
 }
+*/

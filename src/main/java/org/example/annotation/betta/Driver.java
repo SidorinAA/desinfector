@@ -1,29 +1,25 @@
-/*
-package org.example.database.adapter;
+package org.example.annotation.betta;
 
-import org.example.annotation.InjectByType;
-import org.example.annotation.InjectProperty;
-
-import java.sql.*;
-import java.util.*;
-
-import org.example.database.interfaces.Connector;
 import org.example.database.pojo.Student;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-public class DatabaseConnector implements Connector {
+@DriverManager(PostgresDriver.class)
+public abstract class Driver {
 
 
-    @InjectByType
-    private DriverImpl driver;
+    public Driver() {
+    }
 
-    @Override
-    public List<Student> getConnection(String query) throws SQLException {
+    public List<Student> findStudent(String sql) throws SQLException {
         List<Student> students = new ArrayList<>();
-
-        Connection connection = driver.connection();
-
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
@@ -37,4 +33,6 @@ public class DatabaseConnector implements Connector {
         }
         return students;
     }
-}*/
+
+    public abstract Connection getConnection();
+}

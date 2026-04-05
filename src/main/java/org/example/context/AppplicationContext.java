@@ -1,14 +1,12 @@
 package org.example.context;
 
-import lombok.Getter;
 import lombok.SneakyThrows;
 import org.example.annotation.Singleton;
+import org.example.annotation.betta.DriverManager;
 import org.example.config.JavaConfig;
 import org.example.factory.ObjectFactory;
 import org.reflections.Reflections;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,6 +23,13 @@ public class AppplicationContext {
     }
 
     private <T> Class<T> resolveImpl(Class<T> type) throws IllegalAccessException {
+        //как тут быть с реализацией абстрактрого метода - нужна другая конфигурация?
+
+        if (type.isAnnotationPresent(DriverManager.class)) {
+            DriverManager implementation = type.getAnnotation(DriverManager.class);
+            return (Class<T>) implementation.value();
+        }
+
         if (type.isInterface()) {
             type = (Class<T>) javaConfig.getImplClass(type);
         }
@@ -37,7 +42,7 @@ public class AppplicationContext {
             return (T) cache.get(type);
         }
         Class<T> implClass = resolveImpl(type);
-        T t =  factory.createObject(implClass);
+        T t = factory.createObject(implClass);
 
         if (implClass.isAnnotationPresent(Singleton.class)) {
             cache.put(type, t);
