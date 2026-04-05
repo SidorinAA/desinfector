@@ -1,12 +1,9 @@
 package org.example.factory;
 
 import lombok.SneakyThrows;
-import org.example.annotation.InjectByType;
 import org.example.context.AppplicationContext;
 import org.example.interfaces.ObjectConfigurator;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +28,7 @@ public class ObjectFactory {
     public <T> T createObject(Class<T> type) throws Exception {
         T t = type.getDeclaredConstructor().newInstance();
         configure(t);
+        //instatiation.isDriverAllowed(type, ClassLoader.getSystemClassLoader());
         return t;
     }
 
