@@ -1,12 +1,10 @@
-package org.example.annoncer;
+package org.example.inject;
 
 import org.example.annotation.InjectByType;
 import org.example.context.AppplicationContext;
 import org.example.interfaces.ObjectConfigurator;
 
-import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 public class InjectByTypeAnnotattionObjectConfigurator implements ObjectConfigurator {
 

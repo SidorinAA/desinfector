@@ -1,4 +1,4 @@
-package org.example.annoncer;
+package org.example.inject;
 
 import org.example.annotation.InjectProperty;
 import org.example.context.AppplicationContext;

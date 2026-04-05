@@ -2,7 +2,7 @@ package org.example.instatiation;
 
 import org.example.interfaces.Instatiation;
 
-public class InstatiationBefore implements Instatiation {
+public class InstatiationAfter implements Instatiation {
 
     //по сути проверка на прокси или нет объект
     @Override
