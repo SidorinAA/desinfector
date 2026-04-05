@@ -2,6 +2,6 @@ package org.example.interfaces;
 
 public interface Instatiation {
 
-      void isInitalize(Object object, ClassLoader classLoader);
+      void initalize(Object object, ClassLoader classLoader);
 
 }

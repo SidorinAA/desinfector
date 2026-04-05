@@ -23,7 +23,7 @@ public class ConsoleAnnouncer implements Announcer {
     @Override
     public void announce(String message) {
         System.out.print("1 " );
-        instatiation.isInitalize(ConsoleAnnouncer.class, ClassLoader.getSystemClassLoader());
+        instatiation.initalize(ConsoleAnnouncer.class, ClassLoader.getSystemClassLoader());
         System.out.println(message);
         recommendator.recommend();
     }

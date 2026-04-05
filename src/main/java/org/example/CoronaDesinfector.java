@@ -1,15 +1,14 @@
 package org.example;
 
+import org.example.annotation.betta.Driver;
 import org.example.annotation.InjectByType;
-import org.example.database.interfaces.Aggregator;
 import org.example.database.pojo.Student;
 import org.example.interfaces.Announcer;
 import org.example.interfaces.Policeman;
 import org.example.room.Room;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.UUID;
+import java.sql.SQLException;
+import java.util.List;
 
 public class CoronaDesinfector {
 
@@ -21,14 +20,15 @@ public class CoronaDesinfector {
     private Policeman policeman;
 
     @InjectByType
-    private Aggregator aggregator;
+    private Driver database;
 
     public CoronaDesinfector() throws Exception {
     }
 
-    public void start(Room room) {
-        Student student = aggregator.getStudentById(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "SELECT * FROM student WHERE id = ?");
-        System.out.println("Здесь люди: " + student);
+    public void start(Room room) throws SQLException {
+        System.out.println("Здесь люди: :");
+        List<Student> student = database.findStudent("SELECT * FROM student");
+        student.forEach(System.out::println);
         announcer.announce("Всем покинуть");
         policeman.makePeopleLeaveRoom();
         desinfect(room);

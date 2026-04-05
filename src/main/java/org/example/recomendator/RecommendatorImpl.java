@@ -23,7 +23,7 @@ public class RecommendatorImpl implements Recommendator {
     @Override
     public void recommend() {
         System.out.print("2 " );
-        instatiation.isInitalize(ConsoleAnnouncer.class, ClassLoader.getSystemClassLoader()
+        instatiation.initalize(ConsoleAnnouncer.class, ClassLoader.getSystemClassLoader()
 );
         System.out.println("пей: " + drinkName);
     }
