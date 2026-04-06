@@ -15,6 +15,5 @@ public class Main {
         AppplicationContext context = ApplicationRunner.run("org.example", new HashMap<>(Map.of(Policeman.class, PolicemanImpl.class)));
         context.getObject(CoronaDesinfector.class).start(new Room());
 
-
     }
 }

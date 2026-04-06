@@ -7,6 +7,8 @@ import org.example.config.JavaConfig;
 import org.example.factory.ObjectFactory;
 import org.reflections.Reflections;
 
+import javax.annotation.PostConstruct;
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,15 +26,14 @@ public class AppplicationContext {
 
     private <T> Class<T> resolveImpl(Class<T> type) throws IllegalAccessException {
         //как тут быть с реализацией абстрактрого метода - нужна другая конфигурация?
-
         if (type.isAnnotationPresent(DriverManager.class)) {
             DriverManager implementation = type.getAnnotation(DriverManager.class);
             return (Class<T>) implementation.value();
         }
-
         if (type.isInterface()) {
             type = (Class<T>) javaConfig.getImplClass(type);
         }
+
         return type;
     }
 
@@ -43,6 +44,12 @@ public class AppplicationContext {
         }
         Class<T> implClass = resolveImpl(type);
         T t = factory.createObject(implClass);
+
+        for (Method method : type.getMethods()) {
+            if (method.isAnnotationPresent(PostConstruct.class)) {
+                method.invoke(t);
+            }
+        }
 
         if (implClass.isAnnotationPresent(Singleton.class)) {
             cache.put(type, t);
