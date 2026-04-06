@@ -5,6 +5,8 @@ import org.example.annotation.InjectByType;
 import org.example.database.pojo.Student;
 import org.example.interfaces.Announcer;
 import org.example.interfaces.Policeman;
+import org.example.rest.params.ApplicationParameters;
+import org.example.rest.server.Server;
 import org.example.room.Room;
 
 import java.sql.SQLException;
@@ -22,9 +24,6 @@ public class CoronaDesinfector {
     @InjectByType
     private Driver database;
 
-    public CoronaDesinfector() throws Exception {
-    }
-
     public void start(Room room) throws SQLException {
         System.out.println("Здесь люди: :");
         List<Student> student = database.findStudent("SELECT * FROM student");
@@ -33,6 +32,7 @@ public class CoronaDesinfector {
         policeman.makePeopleLeaveRoom();
         desinfect(room);
         announcer.announce("Можете вернуться");
+
     }
 
     private void desinfect(Room room) {
