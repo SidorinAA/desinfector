@@ -22,7 +22,7 @@ public class EncodeInterceptor implements Interceptor {
                     .ifPresent(gzipString -> {
                         byte[] responseBody = compressResponseBody(responseContext.getResponseBody());
                         responseContext.getHeaders().set("Content-Length", String.valueOf(responseBody.length));
-                        responseContext.getHeaders().set("Content-Encoding", "gzip");
+                        //responseContext.getHeaders().set("Content-Encoding", "gzip");
                         responseContext.setResponseBody(responseBody);
                     });
         }

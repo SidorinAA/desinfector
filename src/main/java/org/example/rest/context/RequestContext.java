@@ -43,7 +43,6 @@ public class RequestContext {
             while ((line = reader.readLine()) != null && !line.isEmpty()) {
                 headers.add(line);
             }
-
             var httpHeaders = HttpHeaders.fromHeaderList(headers);
             var requestContext = new RequestContext(methodWithPath.getKey(), methodWithPath.getValue(), httpHeaders);
 
@@ -54,6 +53,7 @@ public class RequestContext {
                 reader.read(bodyBuffer);
                 requestContext.setBody(new String(bodyBuffer));
             }
+
 
             return requestContext;
         } catch (IOException ex) {
