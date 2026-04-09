@@ -15,6 +15,7 @@ public class InjectByTypeAnnotattionObjectConfigurator implements ObjectConfigur
                 Object object = context.getObject(declareField.getType());
                 declareField.setAccessible(true);
                 declareField.set(t, object);
+                System.out.println("Injected " + declareField.getType().getSimpleName() + " into " + t.getClass().getSimpleName());
             }
         }
 

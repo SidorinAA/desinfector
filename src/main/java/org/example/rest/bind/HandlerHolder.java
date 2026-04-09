@@ -43,7 +43,7 @@ public class HandlerHolder {
             for (Method method : methods) {
                 if (method.isAnnotationPresent(RequestMapping.class)) {
                     Class<?>[] parameterTypes = method.getParameterTypes();
-                    if (parameterTypes.length == 1 && parameterTypes[0] == RequestContext.class) {
+                    if (parameterTypes.length == 1 && parameterTypes[0] == RequestContext.class) { //why it he?
                         if (method.getReturnType() == ResponseContext.class) {
                             var annotation = method.getAnnotation(RequestMapping.class);
                             try {

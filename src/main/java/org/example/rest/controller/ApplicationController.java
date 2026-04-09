@@ -2,9 +2,8 @@ package org.example.rest.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.annotation.InjectByType;
+import org.example.annotation.Singleton;
 import org.example.annotation.betta.Driver;
-import org.example.annotation.betta.PostgresDriver;
-import org.example.database.pojo.Student;
 import org.example.rest.bind.RequestMapping;
 import org.example.rest.common.HttpHeaders;
 import org.example.rest.context.RequestContext;
@@ -19,17 +18,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
-public class ApplicationController {
+@Singleton
+public class ApplicationController implements Controller {
 
     @InjectByType
     private Driver database;
 
     @InjectByType
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
    /* public ApplicationController() {
         this.database = new PostgresDriver();
@@ -38,18 +36,12 @@ public class ApplicationController {
     }*/
 
 
+    @Override
     @RequestMapping(path = "/students", method = HttpMethod.GET)
-    public ResponseContext getStudents(RequestContext context) throws SQLException {
-        List<Student> students = database.findStudent("SELECT * FROM student");
+    public ResponseContext getStudents(RequestContext context) {
         try {
-            byte[] bytes = objectMapper.writeValueAsBytes(students);
-
             return ResponseContext.build(
-                    HttpStatus.OK,
-                    HttpHeaders.fromHeaderMap(Map.of("Content-Type", "text/plain",
-                            "Content-Length", String.valueOf(bytes.length))),
-                    bytes
-            );
+                    HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException("Failed to serialize students to JSON", e);
         }

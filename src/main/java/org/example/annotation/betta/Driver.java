@@ -1,5 +1,6 @@
 package org.example.annotation.betta;
 
+import org.example.annotation.Singleton;
 import org.example.database.pojo.Student;
 
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Singleton
 @DriverManager(PostgresDriver.class)
 public abstract class Driver {
 
